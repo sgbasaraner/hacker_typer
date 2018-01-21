@@ -1,0 +1,8 @@
+[package]
+name = "hacker_typer"
+version = "0.1.0"
+authors = ["Sarp Basaraner <sarpbasaraner@gmail.com>"]
+
+[dependencies]
+
+pancurses = "0.14"

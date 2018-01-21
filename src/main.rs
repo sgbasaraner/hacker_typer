@@ -1,3 +1,6 @@
+extern crate pancurses;
+
+use pancurses::{initscr, endwin, Input, noecho};
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
@@ -20,5 +23,30 @@ fn main() {
 		Ok(_) => (),
 	}
 
-	println!("file: {}", file_content);
+	let file_length = file_content.len();
+	let mut counter = 0;
+
+	let window = initscr();
+	window.refresh();
+	window.keypad(true);
+	noecho();
+	loop {
+	    match window.getch() {
+	        Some(Input::Character(_)) => {
+	        	if counter < file_length {
+	        		let mut tmp = 0;
+	        		while tmp < 3 && counter < file_length {
+	        			window.addch(file_content.chars().nth(counter).unwrap());
+	        			tmp += 1;
+	        			counter += 1;
+	        		}
+	        	} else {
+	        		counter = 0;
+	        	}},
+	        Some(Input::KeyDC) => break,
+	        Some(input) => { window.addstr(&format!("{:?}", input)); },
+	        None => ()
+	    }
+	}
+	endwin();
 }

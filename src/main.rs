@@ -1,6 +1,6 @@
 extern crate pancurses;
 
-use pancurses::{initscr, noecho};
+use pancurses::{initscr, noecho, has_colors, start_color};
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
@@ -42,11 +42,13 @@ fn main() {
 				if counter < file_length {
 	        		let mut tmp = 0;
 	        		while tmp < 3 && counter < file_length {
+						// write three characters for each key press
 	        			window.addch(file_content.chars().nth(counter).unwrap());
 	        			tmp += 1;
 	        			counter += 1;
 	        		}
 	        	} else {
+					// restart if we reached the end of the file
 	        		counter = 0;
 	        	}},
 	        None => ()

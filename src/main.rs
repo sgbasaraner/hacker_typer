@@ -1,6 +1,6 @@
 extern crate pancurses;
 
-use pancurses::{initscr, noecho, has_colors, start_color};
+use pancurses::{initscr, noecho};
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;

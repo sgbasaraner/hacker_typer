@@ -10,7 +10,7 @@ fn main() {
 	// path to file
 	let path = Path::new("lib/commoncap.txt");
 
-	// open it in read-only mode
+	// open the file in read-only mode
 	let mut file = match File::open(&path) {
 		Err(why) => panic!("couldn't open: {}", why.description()),
 		Ok(file) => file,
@@ -24,20 +24,24 @@ fn main() {
 	}
 
 	let file_length = file_content.len();
-	let mut counter = 0;
+	let mut counter = 0; // to keep track of where we are in the file
 
+	// initialize curses window
 	let window = initscr();
 	window.refresh();
 	window.keypad(true);
 	noecho();
+
+	// scrolling
 	window.setscrreg(10, 10);
 	window.scrollok(true);
+
 	loop {
 	    match window.getch() {
 	        Some(_) => { 
 				if counter < file_length {
 	        		let mut tmp = 0;
-	        		while tmp < 30 && counter < file_length {
+	        		while tmp < 3 && counter < file_length {
 	        			window.addch(file_content.chars().nth(counter).unwrap());
 	        			tmp += 1;
 	        			counter += 1;

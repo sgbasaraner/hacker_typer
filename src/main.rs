@@ -30,12 +30,14 @@ fn main() {
 	window.refresh();
 	window.keypad(true);
 	noecho();
+	window.setscrreg(10, 10);
+	window.scrollok(true);
 	loop {
 	    match window.getch() {
 	        Some(_) => { 
 				if counter < file_length {
 	        		let mut tmp = 0;
-	        		while tmp < 3 && counter < file_length {
+	        		while tmp < 30 && counter < file_length {
 	        			window.addch(file_content.chars().nth(counter).unwrap());
 	        			tmp += 1;
 	        			counter += 1;
